@@ -1,0 +1,5 @@
+tweepy[async]
+python-dotenv
+wordcloud
+pandas
+matplotlib
