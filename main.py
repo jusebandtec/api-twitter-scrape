@@ -1,10 +1,11 @@
-from scrape import Scrape
-from save_csv_tweets_service import CSVTweets
-from generate_word_cloud_service import GenerateWordCloudService
+from domain.scrape import Scrape
+from service.save_csv_tweets_service import CSVTweets
+from service.generate_word_cloud_service import GenerateWordCloudService
+from service.tratar_tweeter_service import TratarTweeterService
 
 scrape = Scrape().initialize()
 
-INPUT_WORD = "Qual palavra você gostaria de pesquisar?\nTecle Enter para sair \n\n> "
+INPUT_WORD = "Qual palavra você gostaria de pesquisar? Tecle Enter para sair \n> "
 INPUT_RESULTS = "Quantos resultados você gostaria de trazer?\n> " 
 QUIT = ""
 
@@ -14,7 +15,9 @@ while resposta != QUIT:
     max_resultados = int(input(INPUT_RESULTS))
     # usernames = scrape.get_id_user_by_usernames(["iamjusee"])
     tweets = scrape.get_tweets_from_words(resposta, max_resultados)
-
+    # tratarTweeter = TratarTweeterService(dados_tweeter = tweets[0]).tokenizar_dados_tweeter().posicionar_tags().remover_preposicoes_adverbios_dois_pontos_virgula()
+    # print(tratarTweeter)
+    
     resposta_write_csv = input("Gostarai de salvar em um CSV? [S/N] ")
     if resposta_write_csv.lower() == 's':
         csv = CSVTweets(tweets)

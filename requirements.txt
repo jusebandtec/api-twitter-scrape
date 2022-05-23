@@ -3,3 +3,4 @@ python-dotenv
 wordcloud
 pandas
 matplotlib
+nltk
