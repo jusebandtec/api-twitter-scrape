@@ -4,14 +4,16 @@ from generate_word_cloud_service import GenerateWordCloudService
 
 scrape = Scrape().initialize()
 
-INPUT = "Qual palavra você gostaria de pesquisar?\nTecle Enter para sair \n\n> "
+INPUT_WORD = "Qual palavra você gostaria de pesquisar?\nTecle Enter para sair \n\n> "
+INPUT_RESULTS = "Quantos resultados você gostaria de trazer?\n> " 
 QUIT = ""
 
-resposta = input(INPUT)
+resposta = input(INPUT_WORD)
 while resposta != QUIT:
 
+    max_resultados = int(input(INPUT_RESULTS))
     # usernames = scrape.get_id_user_by_usernames(["iamjusee"])
-    tweets = scrape.get_tweets_from_words(resposta)
+    tweets = scrape.get_tweets_from_words(resposta, max_resultados)
 
     resposta_write_csv = input("Gostarai de salvar em um CSV? [S/N] ")
     if resposta_write_csv.lower() == 's':
@@ -25,5 +27,5 @@ while resposta != QUIT:
             word_cloud.generate()
     
     print("\n")
-    resposta = input(INPUT)
+    resposta = input(INPUT_WORD)
 
