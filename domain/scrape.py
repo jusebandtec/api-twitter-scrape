@@ -28,7 +28,7 @@ class Scrape:
     def get_tweets_from_words(self, word, resultados):
         query = f'#{word} lang:pt -is:retweet'
         tweets_tuple = []
-        Tweet = namedtuple("Tweet", ["name", "tweet", "likes", "retweets", "criado_em", "source"])
+        Tweet_namedtuple = namedtuple("Tweet", ["name", "tweet", "likes", "retweets", "criado_em", "source"])
         for response in tweepy.Paginator(
                 self.client.search_recent_tweets,
                 query=query,
@@ -41,7 +41,7 @@ class Scrape:
             for tweet in response.data:
                 if users[tweet.author_id]:
                     user = users[tweet.author_id]
-                    tweets_tuple.append(Tweet(user.name, 
+                    tweets_tuple.append(Tweet_namedtuple(user.name, 
                                             tweet.text, 
                                             tweet.public_metrics['like_count'], 
                                             tweet.public_metrics['retweet_count'], 
