@@ -8,7 +8,7 @@ class CSVTweets:
 
     def write(self, name_file):
         
-        with open(name_file, 'w') as f:
+        with open(f"{name_file}.csv", 'w') as f:
             try:
                 w = csv.writer(f)
                 w.writerow(("name", "tweet", "source", "criado_em", "likes", "retweets"))

@@ -10,11 +10,11 @@ class GenerateWordCloudService:
         pass
 
     def generate(self):
-        data = pd.read_csv(self.file_name_csv)
+        data = pd.read_csv(f"{self.file_name_csv}.csv")
         stopwords = set(STOPWORDS)
         wordcloud = WordCloud(background_color='white', stopwords=stopwords, max_words=200, max_font_size=40, random_state=42).generate(str(data['tweet']))
         
         fig = plt.figure(1)
         plt.imshow(wordcloud)
         plt.axis('off')
-        fig.savefig("word_cloud.png", dpi=900)
+        fig.savefig("word_cloud.png")

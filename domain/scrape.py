@@ -1,3 +1,4 @@
+from typing import List
 import tweepy
 from dotenv import load_dotenv
 import os
@@ -14,26 +15,19 @@ class Scrape:
         self.client = tweepy.Client(bearer_token = bearer_token)
         return self
 
-    def get_tweets(self, words, max_results):
-        # public_tweets = self.api.search_all_tweets(query = words, max_results = max_results)
-        # users = self.client.get_users(usernames=["iamjusee", "kalilgm"])
-        # for user in users:
-        #     print(user)
-        pass
-
     def get_id_user_by_usernames(self, users):
         users = self.client.get_users(usernames = users)
         return [{'id': user.id, 'name': user.name} for user in users.data]
 
-    def get_tweets_from_words(self, word, resultados):
-        query = f'#{word} lang:pt -is:retweet'
+    def get_tweets_from_words(self) -> List[namedtuple]:
+        query = f'#pix lang:pt -is:retweet'
         tweets_tuple = []
         Tweet_namedtuple = namedtuple("Tweet", ["name", "tweet", "likes", "retweets", "criado_em", "source"])
         for response in tweepy.Paginator(
                 self.client.search_recent_tweets,
                 query=query,
                 tweet_fields=['entities','context_annotations', 'created_at', 'public_metrics', 'source', 'geo', 'referenced_tweets'],
-                max_results=100,  
+                max_results= 100,  
                 place_fields = ['place_type', 'geo'],
                 expansions=['author_id', 'geo.place_id', 'referenced_tweets.id.author_id', 'referenced_tweets.id']
             ):
